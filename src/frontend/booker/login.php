@@ -127,7 +127,7 @@ include('db_connect.php');
         }
         ?>
 
-        <form method="POST" action="booking.php">
+        <form method="POST" action="home.php">
             <div class="form-group">
                 <label for="idNumber">รหัสประจำตัว</label>
                 <input type="text" name="idNumber" id="idNumber" placeholder="รหัสประจำตัว" required>
