@@ -66,7 +66,7 @@ in `docker-compose.yml`
 dbname: easyroom
 host: easyroomhost
 user: root
-passwor: 1234
+password: 1234
 ```
 
 ##### Configure DataBase Server
