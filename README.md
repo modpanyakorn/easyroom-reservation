@@ -31,13 +31,14 @@ for Docker Container Service we set directory path deployment to `frontend` dire
 
 - Port `8080`: Apache Web Server serving the EasyRoom application.
 - Port `8000`: phpMyAdmin for managing the MySQL database.
-  Example: "Open Admin Web Page"
+
+Example: "Open Admin Web Page"
 
 ```base
 localhost:8080/admin/index.html
 ```
 
-#### Architecture
+### Architecture
 
 ```bash
 easyroom-reservation/
