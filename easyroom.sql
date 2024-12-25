@@ -58,6 +58,11 @@ CREATE TABLE reservations (
     CONSTRAINT chk_time CHECK (start_time < end_time)
 );
 
+-- ตารางสำหรับการจอง
+INSERT INTO `reservations` (`id`, `user_id`, `room_id`, `start_time`, `end_time`, `purpose`, `created_at`) VALUES
+(1, 1, 3, '2024-12-26 14:00:11', '2024-12-26 17:00:00', 'ขอใช้ห้อง', '2024-12-26 02:30:37'),
+(65310001, 1, 4, '2024-12-25 19:30:36', '2024-12-25 20:30:36', 'ประชุมทีม', '2024-12-26 02:30:37');
+
 -- สร้างตาราง room_schedule
 CREATE TABLE room_schedule (
     id INT AUTO_INCREMENT PRIMARY KEY,
