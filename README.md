@@ -1,8 +1,8 @@
 # EasyRoom Reservation System
 
-![EasyRoom Logo](path_to_your_logo_image) <!-- Replace with your logo path -->
+![EasyRoom Logo](assets/images/logo.png) <!-- Replace with your actual logo path -->
 
-EasyRoom Reservation System is a web-based application designed to simplify the process of reserving rooms. Whether you're booking a meeting room, laboratory, or any other facility, EasyRoom provides an intuitive interface to manage your reservations efficiently.
+EasyRoom Reservation System is a web-based application designed to streamline the process of booking rooms. Whether you're reserving a meeting room, laboratory, or any other facility, EasyRoom provides an intuitive interface to manage your reservations efficiently.
 
 ## Table of Contents
 
