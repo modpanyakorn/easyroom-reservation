@@ -10,3 +10,5 @@ if ($conn->connect_error) {
 } else {
     // echo "เชื่อมต่อฐานข้อมูลสำเร็จ";
 }
+
+$conn->set_charset("utf8");

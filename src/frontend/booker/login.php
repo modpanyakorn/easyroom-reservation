@@ -3,7 +3,7 @@
 session_start();
 
 // ตั้งค่าการเชื่อมต่อฐานข้อมูล
-include('db_connect.php');
+include('db_connect.php')
 ?>
 <!DOCTYPE html>
 <html lang="en">
