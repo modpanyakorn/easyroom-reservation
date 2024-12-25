@@ -7,7 +7,7 @@ services:
     depends_on:
       - easyroomhost
     volumes:
-      - ./booker:/var/www/html/
+      - ./src/frontend/:/var/www/html/
     ports:
       - "8080:80"
     networks:
