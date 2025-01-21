@@ -125,6 +125,7 @@
     border-radius: 20px;
     position: relative;
     padding-top: 20px;
+    cursor: pointer;
 }
 
 .graph-container img {
@@ -200,7 +201,7 @@
     /* จัดเรียงองค์ประกอบในแนวตั้ง */
     border-radius: 20px;
     position: relative;
-
+    cursor: pointer;
 }
 
 .monthly img {

@@ -7,15 +7,21 @@
     display: flex; /* Flexbox for layout */
     flex-direction: column; /* จัดเรียงองค์ประกอบในแนวตั้ง */
     border-radius: 20px;
-    position: relative; /* ตั้งค่า relative เพื่อใช้กับตำแหน่ง absolute */
+}
 
+header {
+    display: flex; /* ใช้ Flexbox */
+    align-items: center; /* จัดให้อยู่กึ่งกลางในแนวตั้ง */
+    justify-content: space-between;
+    padding: 10px; /* เพิ่มระยะขอบภายใน */
+    background-color: #ffffff; /* พื้นหลัง (เลือกได้) */
+   
+  }
+.h1 {
+    margin: 0; /* ลบ margin เริ่มต้น */
+    font-size: 24px; /* ขนาดตัวอักษร */
 }
-.h1{
-    position: absolute; /* ใช้ตำแหน่ง absolute */
-    top: 20px; /* ระยะห่างจากขอบบน */
-    left: 20px; /* ระยะห่างจากขอบซ้าย */
-    text-align: left; /* จัดข้อความให้ชิดซ้าย */
-}
+
 table {
     width: 100%; /* กำหนดความกว้างของตารางให้เต็ม */
     table-layout: fixed; /* ทำให้คอลัมน์มีขนาดเท่ากัน */
@@ -49,4 +55,10 @@ button{
 }
 button:hover {
     background-color: #45a049; /* สีพื้นหลังของปุ่มเมื่อเอาเมาส์ไปชี้ */
+}
+#room{
+    border-radius: 20px;
+    size: auto;
+    width: fit-content;
+    height: auto;
 }
