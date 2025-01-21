@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>equipment</title>
+    <title> broken equipment</title>
     <link rel="stylesheet" href="detailstyle.css">
     <!-- Bootstrap CSS -->
     <link
@@ -91,81 +91,62 @@
     </div>
   </div>
 
-  <div class="content-area">
+<div class="content-area">
 </head>
-<div class="container">
-<header>
-  <h1>อุปกรณ์</h1>
-  <div class="header-right">
-    <button id="openPopup">ทั้งหมด</button>
+<div class="container" >
+  <header>
 
-</header>
-<body>
-  <div id="popup" class="popup">
-    <div class="popup-content">
-      <span id="closePopup" class="close-btn">&times;</span>
-      <h2>เลือกตัวกรอง</h2>
-      <ul>
-        <li><button class="filter-option" data-filter="all">ทั้งหมด</button></li>
-        <li><button class="filter-option" data-filter="today">วันนี้</button></li>
-        <li><button class="filter-option" data-filter="yesterday">เมื่อวานนี้</button></li>
-        <li><button class="filter-option" data-filter="this-week">สัปดาห์นี้</button></li>
-        <li><button class="filter-option" data-filter="last-week">สัปดาห์ที่แล้ว</button></li>
-        <li><button class="filter-option" data-filter="this-month">เดือนนี้</button></li>
-        <li><button class="filter-option" data-filter="last-month">เดือนที่แล้ว</button></li>
-        <li><button class="filter-option" data-filter="this-year">ปีนี้</button></li>
-        <li><button class="filter-option" data-filter="last-year">ปีที่แล้ว</button></li>
+      <button id="openPopup" style="margin-left: 80%;">ทั้งหมด</button>
 
-        <!-- วันเริ่มต้น -->
-        <label for="startDate">เลือกวันเริ่มต้น:</label>
-        <input type="date" id="startDate">
-        
-        <!-- วันสิ้นสุด -->
-        <label for="endDate">เลือกวันสิ้นสุด:</label>
-        <input type="date" id="endDate" style="display:none;"> <!-- ซ่อนวันสิ้นสุดจนกว่าจะเลือกวันเริ่มต้น -->
-      </ul>
+  </header>
+  <body>
+    <div id="popup" class="popup">
+      <div class="popup-content">
+        <span id="closePopup" class="close-btn">&times;</span>
+        <h2>เลือกตัวกรอง</h2>
+        <ul>
+          <li><button class="filter-option" data-filter="all">ทั้งหมด</button></li>
+          <li><button class="filter-option" data-filter="today">วันนี้</button></li>
+          <li><button class="filter-option" data-filter="yesterday">เมื่อวานนี้</button></li>
+          <li><button class="filter-option" data-filter="this-week">สัปดาห์นี้</button></li>
+          <li><button class="filter-option" data-filter="last-week">สัปดาห์ที่แล้ว</button></li>
+          <li><button class="filter-option" data-filter="this-month">เดือนนี้</button></li>
+          <li><button class="filter-option" data-filter="last-month">เดือนที่แล้ว</button></li>
+          <li><button class="filter-option" data-filter="this-year">ปีนี้</button></li>
+          <li><button class="filter-option" data-filter="last-year">ปีที่แล้ว</button></li>
+  
+          <!-- วันเริ่มต้น -->
+          <label for="startDate">เลือกวันเริ่มต้น:</label>
+          <input type="date" id="startDate">
+          
+          <!-- วันสิ้นสุด -->
+          <label for="endDate">เลือกวันสิ้นสุด:</label>
+          <input type="date" id="endDate" style="display:none;"> <!-- ซ่อนวันสิ้นสุดจนกว่าจะเลือกวันเริ่มต้น -->
+        </ul>
+      </div>
     </div>
-  </div>
-        <table>
-            <tr>
-                <td><select>
-                  <option value="eqiup">Eqiup</option>
-                  <option value="projector">โปรเจกเตอร์</option>
-                  <option value="monitor">จอคอมพิวเตอร์</option>
-                  <option value="TV">TV</option>
-                </select></td>
-                <td>จำนวนอุปกรณ์</td>
-                <td>จำนวนอุปกรณ์ที่เสีย</td>
-                <td>จำนวนอุปกรณ์สุทธิ</td>
-                <td>จำนวนการยืมสุทธิ</td>
-            </tr>
-        </table>
-        <hr>
-        <table>
-            <tr>
-                <td>โปรเจกเตอร์</td>
-                <td>40</td>
-                <td>10</td>
-                <td>30</td>
-                <td>50</td>
-            </tr>
-            <tr>
-                <td>จอคอมพิวเตอร์</td>
-                <td>20</td>
-                <td>5</td>
-                <td>15</td>
-                <td>20</td>
-            </tr>
-            <tr>
-                <td>TV</td>
-                <td>5</td>
-                <td>0</td>
-                <td>5</td>
-                <td>30</td>
-            </tr>
-        </table>
-        <button onclick="window.location.href='alldata.html'">BACK</button>
+    <div style="display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;" >
+        <section> <img src="graph.png"></section>
+        <section style="align-items: center;
+        justify-content: center;
+        text-align: center;
+        font-family: sans-serif;">
+            <h2>จำนวนการจอง</h2>
+            <p style="font-size: 30px;">20คน</p>
+            <br>
+            <p style="font-size: 30px;">วิทยาการคอมพิวเตอร์ 12 คน</p>
+            <p style="font-size: 30px;">เทคโนโลยีสารสนเทศ 8 คน</p>
+            <button onclick="window.location.href='graphdetail.html';" style="border-radius: 5px;
+            background-color: purple;">Details</button>
+        </section>
+
     </div>
+  
+  <button onclick="window.location.href='alldata.html'">BACK</button>
+  
 </body>
 <script>
   // เปิดและปิด Popup
