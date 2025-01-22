@@ -10,6 +10,7 @@
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
+SET NAMES 'utf8mb4' COLLATE 'utf8mb4_unicode_ci';
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -26,6 +27,7 @@ SET time_zone = "+00:00";
 --
 -- Table structure for table `borrow_items`
 --
+USE easyroom;
 
 CREATE TABLE `borrow_items` (
   `id` int NOT NULL,
