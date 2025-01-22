@@ -364,21 +364,18 @@ include('db_connect.php');
             <div class="row mb-3">
                 <div class="col-md-6">
                     <label class="form-label">ชื่อ-นามสกุล</label>
-                    <input type="text" class="form-control" placeholder="นาย ปัญญากร ทิมจันทึก" value="นาย ปัญญากร ทิมจันทึก" readonly>
+                    <input type="text" class="form-control" placeholder="นาย ปัญญากร ทิมจันทึก" value="นาย สมศักดิ์ ใจเย็น" readonly>
                 </div>
-                <div class="col-md-6">
-                    <label class="form-label">รหัสประจำตัว</label>
-                    <input type="text" class="form-control" placeholder="65312993" value="65312993" readonly>
-                </div>
+
             </div>
             <div class="row mb-3">
                 <div class="col-md-4">
-                    <label class="form-label">จำนวนนิสิต</label>
-                    <input type="number" min="0" class="form-control" placeholder="ระบุจำนวนนิสิต">
+                    <label class="form-label">เบอร์โทร</label>
+                    <input type="text" class="form-control" placeholder="0967543321" value="0968514566" readonly>
                 </div>
                 <div class="col-md-4">
-                    <label class="form-label">เบอร์โทร</label>
-                    <input type="text" class="form-control" placeholder="0967543321" value="0967543321" readonly>
+                    <label class="form-label">จำนวนนิสิต</label>
+                    <input type="number" min="0" class="form-control" placeholder="ระบุจำนวนนิสิต">
                 </div>
                 <div class="col-md-4">
                     <label class="form-label">วัน</label>
@@ -428,10 +425,22 @@ include('db_connect.php');
                 </tbody>
             </table>
             <div class="textarea-container">
-                <label class="form-label">ความประสงค์การใช้ห้อง</label>
+            <label class="form-label">ความประสงค์การใช้ห้อง</label>
                 <div class="textarea-row">
-                    <textarea class="form-control" rows="3"></textarea>
-                    <button type="submit" class="btn btn-confirm">ยืนยัน</button>
+                    <select class="form-select">
+                        <option value="ติวหนังสือ">ขอใช้ห้องเพื่อติวหนังสือ/เตรียมสอบ</option>
+                        <option value="ประชุมงานกลุ่ม">ขอใช้ห้องเพื่อประชุมงานกลุ่ม</option>
+                        <option value="จัดกิจกรรมเสริมความรู้">ขอใช้ห้องเพื่อจัดกิจกรรมเสริมความรู้</option>
+                        <option value="ถ่ายทำงานโปรเจกต์">ขอใช้ห้องเพื่อถ่ายทำงานโปรเจกต์</option>
+                        <option value="จัดเวิร์กชอป">ขอใช้ห้องเพื่อจัดเวิร์กชอปหรืออบรม</option>
+                        <option value="ดำเนินการวิจัย">ขอใช้ห้องเพื่อดำเนินการวิจัย</option>
+                        <option value="ทำโปรเจกต์วิชาการ">ขอใช้ห้องเพื่อทำโปรเจกต์วิชาการ</option>
+                        <option value="ประชุมออนไลน์">ขอใช้ห้องเพื่อจัดการประชุมออนไลน์</option>
+                        <option value="ฝึกปฏิบัติการทดลอง">ขอใช้ห้องเพื่อฝึกปฏิบัติการทดลองหรือแล็บ</option>
+                    </select>
+                </div>
+
+                <button class="btn-confirm" type="button" style="margin-left: auto; display: block;" onclick="window.location.href='home.php'">ยืนยัน</button>
                 </div>
             </div>
             <p class="note">หมายเหตุ: การจองขอใช้ห้องภายใต้การดูแลของภาควิชาวิทยาการคอมพิวเตอร์ฯ คณะวิทยาศาสตร์ มหาวิทยาลัยนเรศวร วันจันทร์ ถึง ศุกร์ เวลา 8.00 - 17.00 น. ยกเว้นวันหยุดนักขัตฤกษ์</p>

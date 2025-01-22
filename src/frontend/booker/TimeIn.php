@@ -342,8 +342,20 @@ include('db_connect.php');
             <div class="textarea-container">
                 <label class="form-label">ความประสงค์การใช้ห้อง</label>
                 <div class="textarea-row">
-                    <textarea class="form-control" rows="3"></textarea>
-                    <button class="btn-confirm" type="button" onclick="window.location.href='home.php'">ยืนยัน</button>
+                    <select class="form-select">
+                        <option value="ติวหนังสือ">ขอใช้ห้องเพื่อติวหนังสือ/เตรียมสอบ</option>
+                        <option value="ประชุมงานกลุ่ม">ขอใช้ห้องเพื่อประชุมงานกลุ่ม</option>
+                        <option value="จัดกิจกรรมเสริมความรู้">ขอใช้ห้องเพื่อจัดกิจกรรมเสริมความรู้</option>
+                        <option value="ถ่ายทำงานโปรเจกต์">ขอใช้ห้องเพื่อถ่ายทำงานโปรเจกต์</option>
+                        <option value="จัดเวิร์กชอป">ขอใช้ห้องเพื่อจัดเวิร์กชอปหรืออบรม</option>
+                        <option value="ดำเนินการวิจัย">ขอใช้ห้องเพื่อดำเนินการวิจัย</option>
+                        <option value="ทำโปรเจกต์วิชาการ">ขอใช้ห้องเพื่อทำโปรเจกต์วิชาการ</option>
+                        <option value="ประชุมออนไลน์">ขอใช้ห้องเพื่อจัดการประชุมออนไลน์</option>
+                        <option value="ฝึกปฏิบัติการทดลอง">ขอใช้ห้องเพื่อฝึกปฏิบัติการทดลองหรือแล็บ</option>
+                    </select>
+                </div>
+
+                <button class="btn-confirm" type="button" style="margin-left: auto; display: block;" onclick="window.location.href='home.php'">ยืนยัน</button>
                 </div>
             </div>
             <p class="note">หมายเหตุ: การจองขอใช้ห้องภายใต้การดูแลของภาควิชาวิทยาการคอมพิวเตอร์ฯ คณะวิทยาศาสตร์ มหาวิทยาลัยนเรศวร วันจันทร์ ถึง ศุกร์ เวลา 8.00 - 17.00 น. ยกเว้นวันหยุดนักขัตฤกษ์</p>
@@ -356,7 +368,7 @@ include('db_connect.php');
             radio.addEventListener('change', function() {
                 if (this.value === 'นอกเวลา') {
                     // เมื่อเลือก "นอกเวลา" ให้ไปที่ TimeOut2.html
-                    window.location.href = './TimeOut2Teacher.php';
+                    window.location.href = './TimeOut2.php';
                 } else if (this.value === 'ในเวลา') {
                     // เมื่อเลือก "ในเวลา" ให้ไปที่ TimeIn.html
                     window.location.href = './TimeIn.php';

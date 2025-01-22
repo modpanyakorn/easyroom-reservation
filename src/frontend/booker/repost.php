@@ -118,7 +118,7 @@ include('db_connect.php');
   <div class="container">
     <h2>รายงานปัญหา</h2>
 
-    <form action="report_issue.php" method="POST" enctype="multipart/form-data">
+    <form action="home.php" method="POST" enctype="multipart/form-data">
       <div class="upload-section">
         <p>อัปโหลดรูปภาพ</p>
         <input type="file" name="image" accept="image/*" onchange="previewImage(event)">
@@ -131,7 +131,8 @@ include('db_connect.php');
 
       <div class="form-section">
         <label for="equipment">ชื่ออุปกรณ์</label>
-        <select id="equipment" name="equipment">
+        <select id="equipment" name="equipment" onchange="updateDetailsOptions()" required>
+          <option value="">-- กรุณาเลือก --</option>
           <option value="สายไฟ">สายไฟ</option>
           <option value="เก้าอี้">เก้าอี้</option>
           <option value="โต๊ะ">โต๊ะ</option>
@@ -152,7 +153,8 @@ include('db_connect.php');
         </select>
 
         <label for="room">ห้อง</label>
-        <select id="room" name="room">
+        <select id="room" name="room" required>
+          <option value="">-- กรุณาเลือก --</option>
           <option value="SC2-211">SC2-211</option>
           <option value="SC2-212">SC2-212</option>
           <option value="SC2-307">SC2-307</option>
@@ -167,10 +169,12 @@ include('db_connect.php');
         </select>
 
         <label for="details">รายละเอียดเพิ่มเติม</label>
-        <textarea id="details" name="details" placeholder="สาย HDMI เกิดความเสียหายเนื่องจากเกิดอุบัติเหตุ"></textarea>
+        <select id="details" name="details" required>
+          <option value="">-- กรุณาเลือก --</option>
+        </select>
       </div>
 
-      <button type="button" onclick="window.location.href='home.php'">ยืนยัน</button>
+      <button type="submit">ยืนยัน</button>
     </form>
 
     <?php
@@ -244,7 +248,46 @@ include('db_connect.php');
         output.src = reader.result;
         output.style.display = 'block'; // แสดงภาพที่อัปโหลด
       };
-      reader.readAsDataURL(event.target.files[0]);
+
+    }
+
+    function updateDetailsOptions() {
+      const equipment = document.getElementById('equipment').value;
+      const details = document.getElementById('details');
+
+      // ล้างตัวเลือกใน dropdown รายละเอียดเพิ่มเติม
+      details.innerHTML = '<option value="">-- กรุณาเลือก --</option>';
+
+      // รายการปัญหาของแต่ละอุปกรณ์
+      const problems = {
+        "สายไฟ": ["สายไฟชำรุด", "สายไฟขาด", "ปลั๊กไฟหลวม"],
+        "เก้าอี้": ["ขาเก้าอี้หัก", "เบาะชำรุด", "พนักพิงหลุด"],
+        "โต๊ะ": ["ขาโต๊ะหัก", "พื้นโต๊ะมีรอย", "โต๊ะโยก"],
+        "จอคอมพิวเตอร์": ["หน้าจอไม่ติด", "จอมีรอยแตก", "ภาพไม่ชัด"],
+        "โปรเจคเตอร์": ["โปรเจคเตอร์ไม่ติด", "ภาพเบลอ", "รีโมทไม่ทำงาน"],
+        "ทีวี": ["ทีวีไม่ติด", "เสียงไม่ออก", "จอภาพไม่ชัด"],
+        "เครื่องปรับอากาศ": ["ไม่มีความเย็น", "มีน้ำหยด", "เปิดไม่ติด"],
+        "วิชวลไลเซอร์": ["เครื่องไม่ทำงาน", "แสงไม่ออก", "ภาพไม่ขึ้น"],
+        "hub": ["พอร์ตไม่ทำงาน", "ไฟไม่ติด", "อุปกรณ์ไม่เชื่อมต่อ"],
+        "router": ["ไม่มีสัญญาณ", "ไฟไม่ติด", "เชื่อมต่อช้า"],
+        "switch": ["พอร์ตไม่ทำงาน", "อุปกรณ์ไม่ตอบสนอง", "ไฟสถานะไม่ขึ้น"],
+        "พอยเตอร์": ["แบตเตอรี่หมด", "แสงไม่ออก", "ปุ่มกดเสีย"],
+        "เมาส์": ["ปุ่มคลิกไม่ทำงาน", "ตัวชี้เมาส์ไม่ขยับ", "สายเมาส์ชำรุด"],
+        "คีย์บอร์ด": ["ปุ่มกดไม่ติด", "ปุ่มบางตัวหลุด", "แสงไฟไม่ติด"],
+        "ปลั๊กไฟ": ["ปลั๊กไฟชำรุด", "สายไฟหลวม", "ไฟไม่ออก"],
+        "เสียงไมค์": ["ไมค์ไม่มีเสียง", "เสียงขาดหาย", "ไมค์ไม่เชื่อมต่อ"],
+        "คอมพิวเตอร์": ["เครื่องไม่เปิด", "หน้าจอไม่แสดงผล", "คีย์บอร์ดหรือเมาส์ไม่ตอบสนอง"]
+      };
+
+      // ตรวจสอบว่าอุปกรณ์ที่เลือกมีปัญหาหรือไม่
+      if (problems[equipment]) {
+        problems[equipment].forEach(problem => {
+          const opt = document.createElement('option');
+          opt.value = problem;
+          opt.textContent = problem;
+          details.appendChild(opt);
+        });
+      }
     }
   </script>
 </body>

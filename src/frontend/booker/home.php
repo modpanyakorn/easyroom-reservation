@@ -21,6 +21,41 @@ $reservations_query = "SELECT reservations.*, rooms.room_name FROM reservations
                       INNER JOIN rooms ON reservations.room_id = rooms.id 
                       WHERE reservations.user_id = $user_id";
 $reservations_result = $conn->query($reservations_query);
+
+// ฟังก์ชันดึงข้อมูลของแถวจาก issue_reports
+function getIssueDetails($id, $conn) {
+    $id = intval($id); // ทำให้แน่ใจว่า id เป็นตัวเลข
+    $query = "SELECT * FROM issue_reports WHERE id = $id";
+    $result = $conn->query($query);
+
+    if ($result && $result->num_rows > 0) {
+        return $result->fetch_assoc(); // คืนค่าข้อมูลเป็น array
+    } else {
+        return null; // คืนค่า null ถ้าไม่มีข้อมูล
+    }
+}
+
+// ตรวจสอบคำขอจาก AJAX
+if (isset($_GET['get_details']) && $_GET['get_details'] === 'true' && isset($_GET['id'])) {
+    $id = intval($_GET['id']);
+    $details = getIssueDetails($id, $conn);
+
+    header('Content-Type: application/json');
+    if ($details) {
+        echo json_encode($details);
+    } else {
+        echo json_encode(['error' => 'ไม่พบข้อมูล']);
+    }
+    exit();
+}
+
+// ดึงข้อมูลการแจ้งปัญหาทั้งหมด
+$issues_query = "SELECT * FROM issue_reports WHERE user_id = $user_id ORDER BY created_at DESC";
+$issues_result = $conn->query($issues_query);
+$issues = [];
+while ($row = $issues_result->fetch_assoc()) {
+    $issues[] = $row;
+}
 ?>
 
 <!DOCTYPE html>
@@ -200,7 +235,16 @@ $reservations_result = $conn->query($reservations_query);
             </tbody>
         </table>
     </div>
+<?php
+$issues_query = "SELECT * FROM issue_reports WHERE user_id = $user_id ORDER BY created_at DESC";
+$issues_result = $conn->query($issues_query);
 
+if (!$issues_result) {
+    // แสดงข้อผิดพลาดหาก Query ล้มเหลว
+    die("เกิดข้อผิดพลาดในการดึงข้อมูล: " . $conn->error);
+}
+
+?>
     <script>
         function cancelReservation(reservationId) {
             if (confirm('คุณต้องการยกเลิกการจองนี้หรือไม่?')) {
@@ -215,6 +259,95 @@ $reservations_result = $conn->query($reservations_query);
             }
         }
     </script>
+    <!-- Modal Popup -->
+<div id="detailsModal" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; width: 50%; padding: 20px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); border-radius: 8px; z-index: 1000;">
+    <h3 style="margin-top: 0;">รายละเอียดการแจ้งซ่อม</h3>
+    <img id="modalImage" src="" alt="รูปภาพ" style="width: 100%; max-width: 400px; height: auto; margin-bottom: 10px; border-radius: 5px;">
+    <p id="modalEquipment"></p>
+    <p id="modalDetails"></p>
+    <p id="modalRoom"></p>
+    <p id="modalReceiver"></p>
+    <p id="modalStatus"></p>
+    <button onclick="closeModal()" style="padding: 10px 20px; background-color: #e54715; color: white; border: none; border-radius: 5px; cursor: pointer;">ปิด</button>
+</div>
+<div id="modalOverlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 999;" onclick="closeModal()"></div>
+
+<script>
+    function showDetails(id) {
+        // เรียก API เพื่อดึงข้อมูลของปัญหา
+        fetch(`?get_details=true&id=${id}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    alert(data.error); // แจ้งเตือนหากเกิดข้อผิดพลาด
+                } else {
+                    // ตั้งค่าข้อมูลใน Modal Popup
+                    document.getElementById('modalEquipment').textContent = `ชื่ออุปกรณ์: ${data.equipment}`;
+                    document.getElementById('modalDetails').textContent = `รายละเอียด: ${data.details}`;
+                    document.getElementById('modalRoom').textContent = `ห้อง: ${data.room}`;
+                    document.getElementById('modalReceiver').textContent = `ผู้รับแจ้งซ่อม: ${data.reciver}`;
+                    document.getElementById('modalStatus').textContent = `สถานะ: ${data.status}`;
+                    // ตั้งค่าแสดงรูปภาพ หากไม่มีภาพใช้ default.jpg
+                    document.getElementById('modalImage').src = data.image_path ? data.image_path : 'img/blur.png';
+
+                    // แสดง Modal
+                    document.getElementById('detailsModal').style.display = 'block';
+                    document.getElementById('modalOverlay').style.display = 'block';
+                    
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching details:', error);
+                alert('เกิดข้อผิดพลาดในการดึงข้อมูล');
+            });
+    }
+
+    function closeModal() {
+        // ปิด Modal Popup
+        document.getElementById('detailsModal').style.display = 'none';
+        document.getElementById('modalOverlay').style.display = 'none';
+    }
+</script>
+<!-- ส่วนการแสดงผล -->
+<div class="booking-section">
+    <h3>รายการปัญหาที่รายงาน</h3>
+    <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+        <thead>
+            <tr style="background-color: #f2f2f2;">
+                <th style="border: 1px solid #ddd; padding: 8px;">เวลาที่แจ้งซ่อม</th>
+                <th style="border: 1px solid #ddd; padding: 8px;">ชื่ออุปกรณ์</th>
+                <th style="border: 1px solid #ddd; padding: 8px;">รายละเอียด</th>
+                <th style="border: 1px solid #ddd; padding: 8px;">ห้อง</th>
+                <th style="border: 1px solid #ddd; padding: 8px;">ผู้รับแจ้งซ่อม</th>
+                <th style="border: 1px solid #ddd; padding: 8px;">สถานะ</th>
+                <th style="border: 1px solid #ddd; padding: 8px;">เพิ่มเติม</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php while ($issue = $issues_result->fetch_assoc()) { ?>
+                <tr>
+                    <td style="border: 1px solid #ddd; padding: 8px;"><?php echo $issue['created_at']; ?></td>
+                    <td style="border: 1px solid #ddd; padding: 8px;"><?php echo $issue['equipment']; ?></td>
+                    <td style="border: 1px solid #ddd; padding: 8px;"><?php echo $issue['details']; ?></td>
+                    <td style="border: 1px solid #ddd; padding: 8px;"><?php echo $issue['room']; ?></td>
+                    <td style="border: 1px solid #ddd; padding: 8px;"><?php echo $issue['reciver']; ?></td>
+                    <td style="border: 1px solid #ddd; padding: 8px;"><?php echo $issue['status']; ?></td>
+                    <td style="border: 1px solid #ddd; padding: 8px;">
+                    <button
+                        style="padding: 5px 10px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer;"
+                        onclick="showDetails(<?php echo $issue['id']; ?>)">
+                        ดูเพิ่มเติม
+            </button>
+                    </td>
+                </tr>
+            <?php } ?>
+        </tbody>
+    </table>
+</div>
+
+
+<!-- Modal Background Overlay -->
+<div id="modalOverlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); z-index: 999;" onclick="closeModal()"></div>
 
 
 </body>

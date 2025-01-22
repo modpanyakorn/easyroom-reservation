@@ -292,10 +292,24 @@ include('db_connect.php');
         <!-- ฟอร์มความคิดเห็น -->
         <div class="textarea-container">
             <label class="form-label">ความประสงค์การใช้ห้อง</label>
-            <textarea class="form-control" rows="3" placeholder=""></textarea>
-            <!-- ปุ่มยืนยันจะอยู่ขวา -->
-            <button class="btn-confirm" type="button" onclick="window.location.href='TimeOut2Teacher.php'">ยืนยัน</button>
-        </div>
+                <div class="textarea-row">
+                    <select class="form-select">
+                        <option value="ติวหนังสือ">ขอใช้ห้องเพื่อติวหนังสือ/เตรียมสอบ</option>
+                        <option value="ประชุมงานกลุ่ม">ขอใช้ห้องเพื่อประชุมงานกลุ่ม</option>
+                        <option value="จัดกิจกรรมเสริมความรู้">ขอใช้ห้องเพื่อจัดกิจกรรมเสริมความรู้</option>
+                        <option value="ถ่ายทำงานโปรเจกต์">ขอใช้ห้องเพื่อถ่ายทำงานโปรเจกต์</option>
+                        <option value="จัดเวิร์กชอป">ขอใช้ห้องเพื่อจัดเวิร์กชอปหรืออบรม</option>
+                        <option value="ดำเนินการวิจัย">ขอใช้ห้องเพื่อดำเนินการวิจัย</option>
+                        <option value="ทำโปรเจกต์วิชาการ">ขอใช้ห้องเพื่อทำโปรเจกต์วิชาการ</option>
+                        <option value="ประชุมออนไลน์">ขอใช้ห้องเพื่อจัดการประชุมออนไลน์</option>
+                        <option value="ฝึกปฏิบัติการทดลอง">ขอใช้ห้องเพื่อฝึกปฏิบัติการทดลองหรือแล็บ</option>
+                    </select>
+                </div>
+                <button class="btn-confirm" type="button" style="margin-left: auto; display: block;" onclick="window.location.href='home.php'">ยืนยัน</button>
+                </div>
+            </div>
+            </div>
+
 
         <!-- หมายเหตุ -->
         <p class="note">การจองขอใช้ห้องภายใต้การดูแลของภาควิชาวิทยาการคอมพิวเตอร์ฯ คณะวิทยาศาสตร์ มหาวิทยาลัยนเรศวร วันเสาร์ ถึง อาทิตย์ เวลา 8.00-21.00 น.</p>
